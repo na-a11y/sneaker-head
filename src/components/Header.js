@@ -15,10 +15,10 @@ const Header = ({ cartQuantity }) => {
         <Link to="/shop">Shop</Link>
         <Link to="/contact">Contact</Link>
       </nav>
-      <button className="cart-icon">
+      <Link to="/cart" className="cart-icon">
         <FaShoppingCart size={20} />
         {cartQuantity > 0 && <span className="cart-quantity">{cartQuantity}</span>}
-      </button>
+      </Link>
     </header>
   );
 };

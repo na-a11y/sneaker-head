@@ -17,8 +17,19 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
     // Handle form submission (e.g., send data to server or display a message)
     console.log(formData);
+
+    // Show alert upon successful submission
+    alert('Sent successfully');
+    
+    // Clear form fields after submission
+    setFormData({
+      email: '',
+      phone: '',
+      message: '',
+    });
   };
 
   return (
