@@ -1,4 +1,6 @@
 import React from 'react';
+import HeroSection from '../components/HeroSection';
+import ShoeInfoSection from '../components/ShoeInfoSection';
 import '../styles/Shop.css';// Ensure you have this CSS file
 
 const shoes = [
@@ -79,6 +81,8 @@ const shoes = [
 
 const Shop = ({ addToCart }) => {
   return (
+    <>
+    <HeroSection/>
     <div className="shop">
       <h1 className="shop-title">Our Shoe Collection</h1>
       <div className="shoe-list">
@@ -94,6 +98,8 @@ const Shop = ({ addToCart }) => {
         ))}
       </div>
     </div>
+    <ShoeInfoSection/>
+    </>
   );
 };
 

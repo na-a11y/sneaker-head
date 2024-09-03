@@ -34,7 +34,7 @@ const Cart = ({ cart, updateQuantity }) => {
           ))}
           <div className="cart-summary">
             <div className="cart-total">
-              <h2>Total Amount: ${calculateTotal().toFixed(2)}</h2>
+              <h2>Total Amount:₹{calculateTotal().toFixed(2)}</h2>
               <button className="checkout-btn" onClick={handleCheckout}>Proceed to Checkout</button>
             </div>
           </div>
