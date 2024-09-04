@@ -1,9 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { FaShoppingCart } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaShoppingCart, FaHeart, FaUser } from 'react-icons/fa';
 import '../styles/Header.css';
 
 const Header = ({ cartQuantity }) => {
+  const navigate = useNavigate();
+
   return (
     <header className="header-container">
       <div className="logo">
@@ -15,10 +17,18 @@ const Header = ({ cartQuantity }) => {
         <Link to="/shop">Shop</Link>
         <Link to="/contact">Contact</Link>
       </nav>
-      <Link to="/cart" className="cart-icon">
-        <FaShoppingCart size={20} />
-        {cartQuantity > 0 && <span className="cart-quantity">{cartQuantity}</span>}
-      </Link>
+      <div className="header-icons">
+        <button className="wishlist-icon" onClick={() => navigate('/wishlist')}>
+          <FaHeart size={24} />
+        </button>
+        <button className="login-icon" onClick={() => navigate('/login')}>
+          <FaUser size={24} />
+        </button>
+        <button className="cart-icon" onClick={() => navigate('/cart')}>
+          <FaShoppingCart size={24} />
+          <span className="cart-quantity">({cartQuantity})</span>
+        </button>
+      </div>
     </header>
   );
 };

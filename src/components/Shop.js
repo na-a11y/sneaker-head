@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FaHeart, FaRegHeart } from 'react-icons/fa'; // Importing heart icons
 import HeroSection from '../components/HeroSection';
 import ShoeInfoSection from '../components/ShoeInfoSection';
-import '../styles/Shop.css';// Ensure you have this CSS file
+import '../styles/Shop.css';
 
 const shoes = [
   {
@@ -78,29 +80,53 @@ const shoes = [
     img: "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1712145476_1098316.jpg?format=webp&w=480&dpr=1.3",
   }
 ];
+const Shop = ({ addToCart, addToWishlist }) => {
+  const [wishlist, setWishlist] = useState([]);
+  const navigate = useNavigate();
 
-const Shop = ({ addToCart }) => {
+  const handleAddToCart = (shoe) => {
+    addToCart(shoe);
+    alert(`${shoe.name} has been added to your cart!`);
+    navigate('/cart');
+  };
+
+  const handleAddToWishlist = (shoe) => {
+    if (wishlist.find(item => item.id === shoe.id)) {
+      alert(`${shoe.name} is already in your wishlist!`);
+    } else {
+      addToWishlist(shoe);
+      setWishlist([...wishlist, shoe]);
+      alert(`${shoe.name} has been added to your wishlist!`);
+    }
+  };
   return (
     <>
-    <HeroSection/>
-    <div className="shop">
-      <h1 className="shop-title">Our Shoe Collection</h1>
-      <div className="shoe-list">
-        {shoes.map((shoe) => (
-          <div key={shoe.id} className="shoe-card">
-            <img src={shoe.img} alt={shoe.name} className="shoe-img" />
-            <div className="shoe-info">
-              <h2 className="shoe-name">{shoe.name}</h2>
-              <p className="shoe-price">₹{shoe.price}</p>
-              <button className="add-to-cart" onClick={() => addToCart(shoe)}>Add to Cart</button>
+      <HeroSection />
+      <div className="shop">
+        <h1 className="shop-title">Our Shoe Collection</h1>
+        <div className="shoe-list">
+          {shoes.map((shoe) => (
+            <div key={shoe.id} className="shoe-card">
+              <img src={shoe.img} alt={shoe.name} className="shoe-img" />
+              <div className="shoe-info">
+                <h2 className="shoe-name">{shoe.name}</h2>
+                <p className="shoe-price">₹{shoe.price}</p>
+                <div className="button-group">
+                  <button className="add-to-cart" onClick={() => handleAddToCart(shoe)}>Add to Cart</button>
+                  <span 
+                    className="wishlist-icon" 
+                    onClick={() => handleAddToWishlist(shoe)}
+                  >
+                    {wishlist.find(item => item.id === shoe.id) ? <FaHeart /> : <FaRegHeart />}
+                  </span>
+                </div>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
-    <ShoeInfoSection/>
+      <ShoeInfoSection />
     </>
   );
 };
-
 export default Shop;
